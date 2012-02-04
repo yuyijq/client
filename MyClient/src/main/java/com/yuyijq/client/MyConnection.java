@@ -1,8 +1,5 @@
 package com.yuyijq.client;
 
-import com.yuyijq.driver.MyDriverClient;
-import com.yuyijq.driver.MyDriverException;
-
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
@@ -21,15 +18,7 @@ public class MyConnection {
     }
 
     public void open() {
-        MyDriverClient driver = driverFactory.createDriver(urls[0]);
-        try {
-            driver.connect();
-            for (EventListener connectedListener : connectedListeners) {
-                ((ConnectedListener)connectedListener).connected(urls[0]);
-            }
-            return;
-        } catch (MyDriverException e) {
-        }
+
     }
 
     public void addConnectedListener(ConnectedListener connectedListener) {
