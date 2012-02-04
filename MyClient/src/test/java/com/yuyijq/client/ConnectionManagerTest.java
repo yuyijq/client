@@ -9,6 +9,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 public class ConnectionManagerTest {
+
     @Test
     public void should_open_connection_to_server1_success_and_dont_connect_to_server2() {
         String server1 = "server1";
@@ -23,7 +24,8 @@ public class ConnectionManagerTest {
         MyDriverClient driver2 = mock(MyDriverClient.class);
         when(driverFactory.createDriver(server2)).thenReturn(driver2);
 
-        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory);
+        PollPolicy pollPolicy = new RoundPollPolicy(urls);
+        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory, pollPolicy);
 
         MyDriverClient connectedDriverClient = connectionManager.connect();
 
@@ -45,7 +47,13 @@ public class ConnectionManagerTest {
         MyDriverClient driver2 = mock(MyDriverClient.class);
         when(driverFactory.createDriver(server2)).thenReturn(driver2);
 
-        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory);
+        PollPolicy pollPolicy = new RoundPollPolicy(urls);
+        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory, pollPolicy);
+        Integer interval = 2;
+        connectionManager.setInterval(interval);
+        MyThread myThread = mock(MyThread.class);
+        connectionManager.setThread(myThread);
+
 
         MyDriverClient connectedDriverClient = connectionManager.connect();
 
@@ -67,7 +75,8 @@ public class ConnectionManagerTest {
         MyDriverClient driver2 = mock(MyDriverClient.class);
         when(driverFactory.createDriver(server2)).thenReturn(driver2);
 
-        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory);
+        PollPolicy pollPolicy = new RoundPollPolicy(urls);
+        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory, pollPolicy);
         Integer interval = 2;
         connectionManager.setInterval(interval);
         MyThread myThread = mock(MyThread.class);
@@ -75,7 +84,7 @@ public class ConnectionManagerTest {
 
         connectionManager.connect();
 
-        verify(myThread,times(1)).sleep(interval);
+        verify(myThread, times(1)).sleep(interval);
     }
 
     @Test
@@ -93,7 +102,8 @@ public class ConnectionManagerTest {
         MyDriverClient driver2 = mock(MyDriverClient.class);
         when(driverFactory.createDriver(server2)).thenReturn(driver2);
 
-        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory);
+        PollPolicy pollPolicy = new RoundPollPolicy(urls);
+        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory, pollPolicy);
         Integer interval = 2;
         connectionManager.setInterval(interval);
         MyThread myThread = mock(MyThread.class);
@@ -101,7 +111,7 @@ public class ConnectionManagerTest {
 
         connectionManager.connect();
 
-        verify(driver1,times(1)).close();
+        verify(driver1, times(1)).close();
     }
 
     @Test

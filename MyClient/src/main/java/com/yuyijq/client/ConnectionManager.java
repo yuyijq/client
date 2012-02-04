@@ -6,23 +6,23 @@ import com.yuyijq.driver.MyDriverException;
 public class ConnectionManager {
     private String[] urls;
     private DriverFactory driverFactory;
+    private PollPolicy pollPolicy;
     private Integer interval;
     private MyThread thread;
 
-    public ConnectionManager(String[] urls, DriverFactory driverFactory) {
+    public ConnectionManager(String[] urls, DriverFactory driverFactory,PollPolicy pollPolicy) {
         this.urls = urls;
         this.driverFactory = driverFactory;
+        this.pollPolicy = pollPolicy;
     }
 
     public MyDriverClient connect() {
-        int current = 0;
         while (true) {
-            MyDriverClient driver = driverFactory.createDriver(urls[current]);
+            MyDriverClient driver = driverFactory.createDriver(pollPolicy.selectServer());
             try {
                 driver.connect();
                 return driver;
             } catch (MyDriverException e) {
-                ++current;
                 driver.close();
                 pauseAWhile();
                 continue;
