@@ -18,7 +18,13 @@ public class MyConnection {
     }
 
     public void open() {
-
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                ConnectionManager connectionManager = new ConnectionManager(driverFactory, new RoundPollPolicy(urls));
+                connectionManager.connect();
+            }
+        });
+        thread.start();
     }
 
     public void addConnectedListener(ConnectedListener connectedListener) {

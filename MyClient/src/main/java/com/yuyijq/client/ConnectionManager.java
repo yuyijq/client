@@ -14,6 +14,7 @@ public class ConnectionManager {
         this.pollPolicy = pollPolicy;
     }
 
+
     public DriverClient connect() {
         while (true) {
             DriverClient driver = driverFactory.createDriver(pollPolicy.selectServer());
