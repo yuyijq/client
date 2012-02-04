@@ -103,4 +103,9 @@ public class ConnectionManagerTest {
 
         verify(driver1,times(1)).close();
     }
+
+    @Test
+    public void should_retry_first_server_given_all_server_connect_failed() {
+
+    }
 }
