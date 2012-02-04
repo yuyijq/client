@@ -23,11 +23,16 @@ public class ConnectionManager {
                 return driver;
             } catch (MyDriverException e) {
                 ++current;
-                thread.sleep(interval);
+                driver.close();
+                pauseAWhile();
                 continue;
             }
         }
 
+    }
+
+    private void pauseAWhile() {
+        thread.sleep(interval);
     }
 
     public void setInterval(Integer interval) {
