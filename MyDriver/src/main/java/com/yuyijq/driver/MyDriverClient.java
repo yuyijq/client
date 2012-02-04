@@ -1,13 +1,13 @@
 package com.yuyijq.driver;
 
-/**
- * User: zhaohuiyu
- * Date: 2/3/12
- * Time: 10:02 PM
- */
-public class MyDriverClient{
+import java.io.Closeable;
+
+public class MyDriverClient implements Closeable{
 
     public void connect() throws MyDriverException{
     }
 
+    public void close() {
+
+    }
 }

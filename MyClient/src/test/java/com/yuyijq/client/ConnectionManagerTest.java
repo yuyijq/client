@@ -77,4 +77,30 @@ public class ConnectionManagerTest {
 
         verify(myThread,times(1)).sleep(interval);
     }
+
+    @Test
+    public void should_dispose_driverClient_given_connect_to_server_failed() throws MyDriverException {
+        String server1 = "server1";
+        String server2 = "server2";
+
+        String[] urls = new String[]{server1, server2};
+        DriverFactory driverFactory = mock(DriverFactory.class);
+
+        MyDriverClient driver1 = mock(MyDriverClient.class);
+        doThrow(new MyDriverException()).when(driver1).connect();
+        when(driverFactory.createDriver(server1)).thenReturn(driver1);
+
+        MyDriverClient driver2 = mock(MyDriverClient.class);
+        when(driverFactory.createDriver(server2)).thenReturn(driver2);
+
+        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory);
+        Integer interval = 2;
+        connectionManager.setInterval(interval);
+        MyThread myThread = mock(MyThread.class);
+        connectionManager.setThread(myThread);
+
+        connectionManager.connect();
+
+        verify(driver1,times(1)).close();
+    }
 }
