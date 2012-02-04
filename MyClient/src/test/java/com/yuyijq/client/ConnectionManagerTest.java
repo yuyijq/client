@@ -1,6 +1,5 @@
 package com.yuyijq.client;
 
-import com.yuyijq.driver.MyDriverClient;
 import com.yuyijq.driver.MyDriverException;
 import org.junit.Test;
 
@@ -18,16 +17,16 @@ public class ConnectionManagerTest {
         String[] urls = new String[]{server1, server2};
         DriverFactory driverFactory = mock(DriverFactory.class);
 
-        MyDriverClient driver1 = mock(MyDriverClient.class);
+        DriverClient driver1 = mock(DriverClient.class);
         when(driverFactory.createDriver(server1)).thenReturn(driver1);
 
-        MyDriverClient driver2 = mock(MyDriverClient.class);
+        DriverClient driver2 = mock(DriverClient.class);
         when(driverFactory.createDriver(server2)).thenReturn(driver2);
 
         PollPolicy pollPolicy = new RoundPollPolicy(urls);
-        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory, pollPolicy);
+        ConnectionManager connectionManager = new ConnectionManager(driverFactory, pollPolicy);
 
-        MyDriverClient connectedDriverClient = connectionManager.connect();
+        DriverClient connectedDriverClient = connectionManager.connect();
 
         assertThat(connectedDriverClient, is(driver1));
     }
@@ -40,22 +39,22 @@ public class ConnectionManagerTest {
         String[] urls = new String[]{server1, server2};
         DriverFactory driverFactory = mock(DriverFactory.class);
 
-        MyDriverClient driver1 = mock(MyDriverClient.class);
+        DriverClient driver1 = mock(DriverClient.class);
         doThrow(new MyDriverException()).when(driver1).connect();
         when(driverFactory.createDriver(server1)).thenReturn(driver1);
 
-        MyDriverClient driver2 = mock(MyDriverClient.class);
+        DriverClient driver2 = mock(DriverClient.class);
         when(driverFactory.createDriver(server2)).thenReturn(driver2);
 
         PollPolicy pollPolicy = new RoundPollPolicy(urls);
-        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory, pollPolicy);
+        ConnectionManager connectionManager = new ConnectionManager(driverFactory, pollPolicy);
         Integer interval = 2;
         connectionManager.setInterval(interval);
         MyThread myThread = mock(MyThread.class);
         connectionManager.setThread(myThread);
 
 
-        MyDriverClient connectedDriverClient = connectionManager.connect();
+        DriverClient connectedDriverClient = connectionManager.connect();
 
         assertThat(connectedDriverClient, is(driver2));
     }
@@ -68,15 +67,15 @@ public class ConnectionManagerTest {
         String[] urls = new String[]{server1, server2};
         DriverFactory driverFactory = mock(DriverFactory.class);
 
-        MyDriverClient driver1 = mock(MyDriverClient.class);
+        DriverClient driver1 = mock(DriverClient.class);
         doThrow(new MyDriverException()).when(driver1).connect();
         when(driverFactory.createDriver(server1)).thenReturn(driver1);
 
-        MyDriverClient driver2 = mock(MyDriverClient.class);
+        DriverClient driver2 = mock(DriverClient.class);
         when(driverFactory.createDriver(server2)).thenReturn(driver2);
 
         PollPolicy pollPolicy = new RoundPollPolicy(urls);
-        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory, pollPolicy);
+        ConnectionManager connectionManager = new ConnectionManager(driverFactory, pollPolicy);
         Integer interval = 2;
         connectionManager.setInterval(interval);
         MyThread myThread = mock(MyThread.class);
@@ -95,15 +94,15 @@ public class ConnectionManagerTest {
         String[] urls = new String[]{server1, server2};
         DriverFactory driverFactory = mock(DriverFactory.class);
 
-        MyDriverClient driver1 = mock(MyDriverClient.class);
+        DriverClient driver1 = mock(DriverClient.class);
         doThrow(new MyDriverException()).when(driver1).connect();
         when(driverFactory.createDriver(server1)).thenReturn(driver1);
 
-        MyDriverClient driver2 = mock(MyDriverClient.class);
+        DriverClient driver2 = mock(DriverClient.class);
         when(driverFactory.createDriver(server2)).thenReturn(driver2);
 
         PollPolicy pollPolicy = new RoundPollPolicy(urls);
-        ConnectionManager connectionManager = new ConnectionManager(urls, driverFactory, pollPolicy);
+        ConnectionManager connectionManager = new ConnectionManager(driverFactory, pollPolicy);
         Integer interval = 2;
         connectionManager.setInterval(interval);
         MyThread myThread = mock(MyThread.class);

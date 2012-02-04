@@ -1,24 +1,22 @@
 package com.yuyijq.client;
 
-import com.yuyijq.driver.MyDriverClient;
 import com.yuyijq.driver.MyDriverException;
 
 public class ConnectionManager {
-    private String[] urls;
     private DriverFactory driverFactory;
     private PollPolicy pollPolicy;
+
     private Integer interval;
     private MyThread thread;
 
-    public ConnectionManager(String[] urls, DriverFactory driverFactory,PollPolicy pollPolicy) {
-        this.urls = urls;
+    public ConnectionManager(DriverFactory driverFactory, PollPolicy pollPolicy) {
         this.driverFactory = driverFactory;
         this.pollPolicy = pollPolicy;
     }
 
-    public MyDriverClient connect() {
+    public DriverClient connect() {
         while (true) {
-            MyDriverClient driver = driverFactory.createDriver(pollPolicy.selectServer());
+            DriverClient driver = driverFactory.createDriver(pollPolicy.selectServer());
             try {
                 driver.connect();
                 return driver;
