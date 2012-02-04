@@ -9,6 +9,7 @@ public class RoundPollPolicy implements PollPolicy {
     }
 
     public String selectServer() {
+        current = current % urls.length;
         String url = urls[current];
         ++current;
         return url;

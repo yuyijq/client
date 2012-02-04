@@ -27,4 +27,16 @@ public class RoundPollPolicyTest {
         assertThat(url,is("server2"));
     }
 
+    @Test
+    public void should_return_first_server_given_called_all_servers() {
+        String[] urls = {"server1", "server2"};
+        RoundPollPolicy pollPolicy = new RoundPollPolicy(urls);
+
+        pollPolicy.selectServer();
+        pollPolicy.selectServer();
+        String url = pollPolicy.selectServer();
+
+        assertThat(url,is("server1"));
+    }
+
 }
