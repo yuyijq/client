@@ -13,12 +13,17 @@ public class ConnectionManager {
     }
 
     public MyDriverClient connect() {
-        MyDriverClient driver = driverFactory.createDriver(urls[0]);
-        try {
-            driver.connect();
-            return driver;
-        } catch (MyDriverException e) {
-            return null;
+        int current = 0;
+        while (true) {
+            MyDriverClient driver = driverFactory.createDriver(urls[current]);
+            try {
+                driver.connect();
+                return driver;
+            } catch (MyDriverException e) {
+                ++current;
+                continue;
+            }
         }
+
     }
 }
