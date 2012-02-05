@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class DispatcherTest {
@@ -40,6 +41,14 @@ public class DispatcherTest {
         MyData data = new MyData(1, "hello world");
         dispatcher.dispatch(data);
 
-        assertThat(subscriber.getMessage(),is("hello world"));
+        assertThat(subscriber.getMessage(), is("hello world"));
+    }
+
+    @Test
+    public void should_not_delivery_other_message_to_given_subscriber_which_queryId_does_not_match() {
+        MyData data = new MyData(2, "hello world");
+        dispatcher.dispatch(data);
+
+        assertNull(subscriber.getMessage());
     }
 }
