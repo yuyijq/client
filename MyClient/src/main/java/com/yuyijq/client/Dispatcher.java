@@ -7,4 +7,8 @@ public class Dispatcher {
     public void dispatch(MyData data) {
 
     }
+
+    public void register(Subscriber subscriber) {
+
+    }
 }

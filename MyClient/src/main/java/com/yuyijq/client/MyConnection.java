@@ -45,4 +45,9 @@ public class MyConnection {
         }
     }
 
+    public Integer subscribe(Subscriber subscriber){
+        dispatcher.register(subscriber);
+        return subscriber.getQueryId();
+    }
+
 }
