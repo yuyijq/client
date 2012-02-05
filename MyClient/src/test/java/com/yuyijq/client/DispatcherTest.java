@@ -34,4 +34,12 @@ public class DispatcherTest {
 
         assertThat(subscriber.isBegin(), is(false));
     }
+
+    @Test
+    public void should_delivery_other_message_to_given_subscriber() {
+        MyData data = new MyData(1, "hello world");
+        dispatcher.dispatch(data);
+
+        assertThat(subscriber.getMessage(),is("hello world"));
+    }
 }

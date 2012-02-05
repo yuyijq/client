@@ -17,6 +17,10 @@ public class FakeSubscriber implements Subscriber {
         begin = true;
     }
 
+    public void onReceive(String message) {
+        this.message = message;
+    }
+
     public String getMessage() {
         return message;
     }
