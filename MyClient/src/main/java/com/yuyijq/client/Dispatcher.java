@@ -29,6 +29,6 @@ public class Dispatcher {
     }
 
     public void deregister(Integer subscribeId) {
-
+        registeredSubscribers.remove(subscribeId);
     }
 }

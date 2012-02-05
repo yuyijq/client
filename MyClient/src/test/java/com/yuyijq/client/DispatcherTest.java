@@ -51,4 +51,14 @@ public class DispatcherTest {
 
         assertNull(subscriber.getMessage());
     }
+
+    @Test
+    public void should_not_delivery_message_to_deregistered_subscriber() {
+        dispatcher.deregister(1);
+
+        MyData data = new MyData(1, "hello world");
+        dispatcher.dispatch(data);
+
+        assertNull(subscriber.getMessage());
+    }
 }
