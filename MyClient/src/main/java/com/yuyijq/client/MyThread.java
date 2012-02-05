@@ -6,5 +6,5 @@ package com.yuyijq.client;
  * Time: 11:02 PM
  */
 public interface MyThread {
-    void sleep(int interval);
+    void sleep(Long interval);
 }

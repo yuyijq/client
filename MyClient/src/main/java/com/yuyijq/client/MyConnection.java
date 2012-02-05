@@ -26,6 +26,7 @@ public class MyConnection {
 
     private void dispatch() {
         ConnectionManager connectionManager = new ConnectionManager(driverFactory, new RoundPollPolicy(urls));
+        connectionManager.setThread(new OSThread());
         driverClient = connectionManager.connect();
 
         while (true) {

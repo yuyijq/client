@@ -48,7 +48,7 @@ public class ConnectionManagerTest {
 
         PollPolicy pollPolicy = new RoundPollPolicy(urls);
         ConnectionManager connectionManager = new ConnectionManager(driverFactory, pollPolicy);
-        Integer interval = 2;
+        Long interval = 2L;
         connectionManager.setInterval(interval);
         MyThread myThread = mock(MyThread.class);
         connectionManager.setThread(myThread);
@@ -76,7 +76,7 @@ public class ConnectionManagerTest {
 
         PollPolicy pollPolicy = new RoundPollPolicy(urls);
         ConnectionManager connectionManager = new ConnectionManager(driverFactory, pollPolicy);
-        Integer interval = 2;
+        Long interval = 2L;
         connectionManager.setInterval(interval);
         MyThread myThread = mock(MyThread.class);
         connectionManager.setThread(myThread);
@@ -103,7 +103,7 @@ public class ConnectionManagerTest {
 
         PollPolicy pollPolicy = new RoundPollPolicy(urls);
         ConnectionManager connectionManager = new ConnectionManager(driverFactory, pollPolicy);
-        Integer interval = 2;
+        Long interval = 2L;
         connectionManager.setInterval(interval);
         MyThread myThread = mock(MyThread.class);
         connectionManager.setThread(myThread);

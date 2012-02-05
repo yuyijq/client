@@ -3,15 +3,22 @@ package com.yuyijq.client;
 import com.yuyijq.driver.MyDriverException;
 
 public class ConnectionManager {
+    private static final Long DEFAULT_PAUSE_INTERVAL = 1L;
+
     private DriverFactory driverFactory;
     private PollPolicy pollPolicy;
 
-    private Integer interval;
+    private Long interval;
     private MyThread thread;
 
     public ConnectionManager(DriverFactory driverFactory, PollPolicy pollPolicy) {
+        init();
         this.driverFactory = driverFactory;
         this.pollPolicy = pollPolicy;
+    }
+
+    private void init() {
+        interval = DEFAULT_PAUSE_INTERVAL;
     }
 
 
@@ -34,7 +41,7 @@ public class ConnectionManager {
         thread.sleep(interval);
     }
 
-    public void setInterval(Integer interval) {
+    public void setInterval(Long interval) {
         this.interval = interval;
     }
 
