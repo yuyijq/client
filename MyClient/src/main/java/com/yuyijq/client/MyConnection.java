@@ -50,4 +50,8 @@ public class MyConnection {
         return subscriber.getQueryId();
     }
 
+    public void unsubscribe(Integer subscribeId){
+        dispatcher.deregister(subscribeId);
+    }
+
 }

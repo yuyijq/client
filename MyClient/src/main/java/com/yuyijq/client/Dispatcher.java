@@ -27,4 +27,8 @@ public class Dispatcher {
     public void register(Subscriber subscriber) {
         registeredSubscribers.put(subscriber.getQueryId(), subscriber);
     }
+
+    public void deregister(Integer subscribeId) {
+
+    }
 }
