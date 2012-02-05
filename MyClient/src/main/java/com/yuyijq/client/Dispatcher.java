@@ -13,11 +13,15 @@ public class Dispatcher {
         if (subscriber == null) {
             return;
         }
-        if (data.getValue().equals("begin")) {
+        if (isBegin(data)) {
             subscriber.onBegin();
         } else {
             subscriber.onReceive(data.getValue());
         }
+    }
+
+    private boolean isBegin(MyData data) {
+        return data.getValue().equals("begin");
     }
 
     public void register(Subscriber subscriber) {
